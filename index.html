@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>All Aboard!</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+  <!-- Play An Audio Clip When The Page Loads -->
+  <audio autoplay>
+    <source src="assets/audio/all-aboard.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <div class="container">
+
+    <br>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+      <h1 class="text-center">All Aboard! Co. Train Schedule</h1>
+      <h3 class="text-center"><img src="assets/images/animatedtrain.gif"></h3>
+    </div>
+    <div class="row">
+
+<!-- Start Of Train Schedule Panel -->
+      <div class="col-lg-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Current Train Schedule</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Train Name</th>
+                  <th>Destination</th>
+                  <th>Frequency (min)</th>
+                  <th>Next Arrival</th>
+                  <th>Minutes Away</th>
+                </tr>
+              </thead>
+              <tbody id="display-schedule">
+<!-- The Train Schedule Is Displayed Here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- End Of Train Schedule Panel -->
+
+<!-- Start Of Train Input Panel -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Add Train</h3>
+          </div>
+          <div class="panel-body">
+
+<!-- Add Train Input Form -->
+            <form>
+              <div class="form-group">
+                <label for="input-name">Train Name:</label>
+                <input type="text" class="form-control" id="input-name" placeholder="Name" autofocus required>
+              </div>
+              <div class="form-group">
+                <label for="input-destination">Destination:</label>
+                <input type="text" class="form-control" id="input-destination" placeholder="Destination" required>
+              </div>
+              <div class="form-group">
+                <label for="input-time">First Train Time (Military Time - HH:MM):</label>
+                <input type="text" class="form-control" id="input-arrival-time" placeholder="23:00" pattern="^([01]\d|2[0-3]):?([0-5]\d)$" title="Enter the time as HH:MM" required>
+              </div>
+              <div class="form-group">
+                <label for="input-frequency">Frequency (Minutes):</label>
+                <input class="form-control" id="input-frequency" type="number" placeholder="60" required>
+              </div>
+              <button type="submit" class="btn btn-primary" id="add-schedule">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- End Of Train Input Panel -->
+  </div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery.js"></script>
+
+<!-- Moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
+<!-- Train Schedule -->
+<script src="assets/javascript/trainschedule.js"></script>
+
+</body>
+
+</html>
