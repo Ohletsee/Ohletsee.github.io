@@ -50,26 +50,23 @@ function displaySchedule(data) {
 		for (var i = 0; i < keys.length; i++) {
 			var j = keys[i];
 
-			// Convert from military time to 12 hour time
-			var timeAMPM = moment(trains[j].arrivalTime, "hh:mm").format("hh:mm A");
+			var frequency = parseInt(trains[j].frequency);
 
-			// Change the arrival time to the moment format
-			var arrivalTime = moment(trains[j].arrivalTime, "hh:mm");
+			// Calculate the arrival time relative to the current time
+			arrivalTime = moment().add(frequency, "minutes");
+
+			// Convert from military time to 12 hour time
+			var arrivalTimeAMPM = moment(arrivalTime, "hh:mm").format("hh:mm A");
 
 			// Calculate the minutes until arrival
 			var minutesAway = arrivalTime.diff(moment(), "minutes");
-
-			if (minutesAway < 0) {
-				minutesAway = moment().diff(arrivalTime, "minutes");
-				minutesAway =+ 1440 - minutesAway;
-			}
 
 			// Create the HTML and display the train schedule
 	    scheduleHTML = "<tr>";
 	    scheduleHTML += "<td>" + trains[j].name + "</td>";
 	    scheduleHTML += "<td>" + trains[j].destination + "</td>";
 	    scheduleHTML += "<td>" + trains[j].frequency + "</td>";
-	    scheduleHTML += "<td>" + timeAMPM + "</td>";
+	    scheduleHTML += "<td>" + arrivalTimeAMPM + "</td>";
 	    scheduleHTML += "<td>" + minutesAway + "</td>";
 	    scheduleHTML += "</tr>";
 
@@ -84,36 +81,36 @@ function updateDatabase() {
 	var validData = true;
 	var regExpResult;
 
-	var myName = $("#input-name").val().trim();
-	var myDestination = $("#input-destination").val().trim();
-	var myArrivalTime = $("#input-arrival-time").val().trim();
-	var myFrequency = $("#input-frequency").val().trim();
+	var nameIn = $("#input-name").val().trim();
+	var destinationIn = $("#input-destination").val().trim();
+	var arrivalTimeIn = $("#input-arrival-time").val().trim();
+	var frequencyIn = $("#input-frequency").val().trim();
 
 	// Validate the user input
-	if (myName === "") {
+	if (nameIn === "") {
 		validData = false;
 	}
 
-	if (myDestination === "") {
+	if (destinationIn === "") {
 		validData = false;
 	}
 
-   regExpResult = /^([01]\d|2[0-3]):?([0-5]\d)$/.test(myArrivalTime);
+   regExpResult = /^([01]\d|2[0-3]):?([0-5]\d)$/.test(arrivalTimeIn);
    if (!regExpResult) {
 	  validData = false;
    }
 
-	if (myFrequency === "") {
+	if (frequencyIn === "") {
 		validData = false;
 	}
 
 	// When the user input is valid, update the database	
 	if (validData) {
 		var schedule = {
-			name: myName,
-			destination: myDestination,
-			arrivalTime: myArrivalTime,
-			frequency: myFrequency
+			name: nameIn,
+			destination: destinationIn,
+			arrivalTime: arrivalTimeIn,
+			frequency: frequencyIn
 		}
 		ref.push(schedule);
 	}
